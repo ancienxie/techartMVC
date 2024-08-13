@@ -63,7 +63,7 @@
 					</li>
 				<?php endfor; ?>
 			
-			<li class="nav__elem--li"><a href="?page=<?=min($page + 1, $pages)?>" class="nav__elem--button"><div class="nav_elem--button--arrow" id="arrow-2"></div></a></li>
+			<li class="nav__elem--button-li"><a href="?page=<?=min($page + 1, $pages)?>" ><div class="nav_elem--button--arrow" id="arrow-2"></div></a></li>
 		</ul>
 	</div>
 		
