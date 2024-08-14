@@ -1,6 +1,6 @@
 <?php
 
-require_once "./DataBase/DataBase.php";
+require_once "./DataBase.php";
 
 class NewsModel
 {
@@ -12,14 +12,11 @@ class NewsModel
 
 	public static function getRows($offset, $limit)
 	{
-		// Первая новость на странице
-		$forward = ($offset - 1) * $limit;
-
 		// Запрашиваем последние новости с учетом пагинации
 		$sql = "SELECT *, DATE_FORMAT(`date`, '%d.%m.%Y') as news_date FROM news ORDER BY `date` DESC LIMIT :limit OFFSET :offset";
 		$stmt = DataBase::getData()->prepare($sql);
 		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-		$stmt->bindValue(':offset', $forward, PDO::PARAM_INT);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}

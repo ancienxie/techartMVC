@@ -1,6 +1,6 @@
 <?php 
 	include "./header.php";
-	require_once "./NewsModel/NewsModel.php";
+	require_once "./NewsModel.php";
 
 	// Получение номера статьи
 	$id = $_GET['id'] ?? 0;
