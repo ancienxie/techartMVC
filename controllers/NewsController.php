@@ -1,31 +1,54 @@
 <?php
-// Подключение класса NewsModel
-require_once './NewsModel.php';
+	// Подключение модели
+	require_once './NewsModel.php';
 
-class NewsController
-{
-	// Количество новостей на странице
-	private $newsPerPage = 4;
-
-	public function getPage()
+	class NewsController
 	{
-		// Получаем номер текущей страницы из GET-запроса или устанавливаем 1, если страница не указана
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-		return $page;
+		// Количество новостей на странице
+		private $newsPerBlock = 4;
+
+		public function getNewsBlock()
+		{
+			// Получаем номер текущего блока новостей из GET-запроса или устанавливаем 1, если номер блока не указан
+			$newsBlock = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+			return $newsBlock;
+		}
+
+		public function displayNews()
+		{
+			// Получаем номер текущего блока новостей
+			$newsBlock = self::getNewsBlock();
+
+			// Вычисляем offset для SQL запроса
+			$offset = ($newsBlock - 1) * $this->newsPerBlock;
+
+			// Вызываем статическую функцию getRows из NewsModel
+			$news = NewsModel::getRows($offset, $this->newsPerBlock);
+
+			return $news;
+		}
+
+		public function countNewsBlocks()
+		{
+			// Подсчет кол-ва новостей
+			$count = NewsModel::getCount();
+			
+			// Расчет количества блоков новостей
+			$newsBlocks = ceil($count / 4);
+
+			return $newsBlocks;
+		}
+
+		public function getNews()
+		{
+			return NewsModel::getLast();
+		}
+
+		public function newsId()
+		{
+			// Получение номера статьи
+			$id = $_GET['id'] ?? 0; 
+			return NewsModel::getItem($id);
+		}
 	}
-
-	public function displayNews()
-	{
-		// Получаем номер текущей страницы
-		$page = self::getPage();
-
-		// Вычисляем offset для SQL запроса
-		$offset = ($page - 1) * $this->newsPerPage;
-
-		// Вызываем статическую функцию getRows из модели NewsModel
-		$news = NewsModel::getRows($offset, $this->newsPerPage);
-
-		return $news;
-	}
-}
 ?>

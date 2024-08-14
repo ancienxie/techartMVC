@@ -14,7 +14,7 @@
 				<img src="./images/logo.png" alt="Галактический вестник">
 			</li>
 			<?php
-			include "top-menu.php";
+			include "./topMenu.php";
 			foreach($menu as $item){?>
 			<li>
 				<a href="<? echo $item["link"]?>"><p class="top-menu__elements--p"><?=$item["text"];?></p></a>
