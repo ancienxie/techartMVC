@@ -12,13 +12,13 @@
 	$row = $controller->getNews();
 
 	// Получение текущего блока новостей
-	$currNewsBlock = $controller->getNewsPage();
+	$currNewsPage = $controller->getNewsPage();
 
 	// Вывод новостей с учетом пагинации
 	$news = $controller->displayNews();
 
 	// Получение кол-ва страниц
-	$newsBlocksAmount = $controller->countNewsBlocks();
+	$pagesAmount = $controller->countNewsPages();
 
 	// Подключение верстки главной страницы
 	include "./homePage.php";

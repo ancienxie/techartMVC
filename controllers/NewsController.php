@@ -10,17 +10,17 @@
 		public function getNewsPage()
 		{
 			// Получаем номер текущего блока новостей из GET-запроса или устанавливаем 1, если номер блока не указан
-			$newsList = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-			return $newsList;
+			$newsPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+			return $newsPage;
 		}
 
 		public function displayNews()
 		{
 			// Получаем номер текущего блока новостей
-			$newsList = self::getNewsPage();
+			$newsPage = self::getNewsPage();
 
 			// Вычисляем offset для SQL запроса
-			$offset = ($newsList - 1) * $this->newsPerPage;
+			$offset = ($newsPage - 1) * $this->newsPerPage;
 
 			// Вызываем статическую функцию getRows из NewsModel
 			$news = NewsModel::getRows($offset, $this->newsPerPage);
@@ -28,7 +28,7 @@
 			return $news;
 		}
 
-		public function countNewsBlocks()
+		public function countNewsPages()
 		{
 			// Подсчет кол-ва новостей
 			$count = NewsModel::getCount();
@@ -50,7 +50,7 @@
 			$id = $_GET['id'] ?? 0; 
 			return NewsModel::getItem($id);
 		}
-		
+
 		public function actionList($pageNum)
 		{
 			
