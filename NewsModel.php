@@ -7,7 +7,8 @@
 		public static function getCount()
 		{
 			$sql = "SELECT COUNT(*) FROM news;";
-			return DataBase::getData()->query($sql)->fetchColumn();
+			$count = DataBase::getData()->query($sql)->fetchColumn();
+			return ceil($count / 4);	
 		}
 
 		public static function getRows($offset, $limit)
@@ -24,7 +25,6 @@
 		public static function getLast()
 		{
 			return DataBase::getData()->query(DataBase::getRequest())->fetch();
-
 		}
 
 		public static function getItem($id)

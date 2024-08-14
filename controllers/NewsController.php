@@ -5,7 +5,7 @@
 	class NewsController
 	{
 		// Количество новостей на странице
-		private $newsPerPage = 4;
+		private $limit = 4;
 
 		public function getNewsPage()
 		{
@@ -20,10 +20,10 @@
 			$newsPage = self::getNewsPage();
 
 			// Вычисляем offset для SQL запроса
-			$offset = ($newsPage - 1) * $this->newsPerPage;
+			$offset = ($newsPage - 1) * $this->limit;
 
 			// Вызываем статическую функцию getRows из NewsModel
-			$news = NewsModel::getRows($offset, $this->newsPerPage);
+			$news = NewsModel::getRows($offset, $this->limit);
 
 			return $news;
 		}
@@ -32,16 +32,16 @@
 		{
 			// Подсчет кол-ва новостей
 			$count = NewsModel::getCount();
-			
-			// Расчет количества блоков новостей
-			$newsBlocks = ceil($count / 4);
 
-			return $newsBlocks;
+			return $count;
 		}
 
 		public function getNews()
 		{
-			return NewsModel::getLast();
+			// Получение списка новостей
+			$req = NewsModel::getLast();
+
+			return $req;
 		}
 
 		public function newsId()
@@ -53,7 +53,7 @@
 
 		public function actionList($pageNum)
 		{
-			
+						
 		}
 
 		public function actionDetail($id)
