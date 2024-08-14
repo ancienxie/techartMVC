@@ -12,7 +12,7 @@
 	$row = $controller->getNews();
 
 	// Получение текущего блока новостей
-	$currNewsBlock = $controller->getNewsBlock();
+	$currNewsBlock = $controller->getNewsPage();
 
 	// Вывод новостей с учетом пагинации
 	$news = $controller->displayNews();

@@ -5,25 +5,25 @@
 	class NewsController
 	{
 		// Количество новостей на странице
-		private $newsPerBlock = 4;
+		private $newsPerPage = 4;
 
-		public function getNewsBlock()
+		public function getNewsPage()
 		{
 			// Получаем номер текущего блока новостей из GET-запроса или устанавливаем 1, если номер блока не указан
-			$newsBlock = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-			return $newsBlock;
+			$newsList = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+			return $newsList;
 		}
 
 		public function displayNews()
 		{
 			// Получаем номер текущего блока новостей
-			$newsBlock = self::getNewsBlock();
+			$newsList = self::getNewsPage();
 
 			// Вычисляем offset для SQL запроса
-			$offset = ($newsBlock - 1) * $this->newsPerBlock;
+			$offset = ($newsList - 1) * $this->newsPerPage;
 
 			// Вызываем статическую функцию getRows из NewsModel
-			$news = NewsModel::getRows($offset, $this->newsPerBlock);
+			$news = NewsModel::getRows($offset, $this->newsPerPage);
 
 			return $news;
 		}
@@ -49,6 +49,16 @@
 			// Получение номера статьи
 			$id = $_GET['id'] ?? 0; 
 			return NewsModel::getItem($id);
+		}
+		
+		public function actionList($pageNum)
+		{
+			
+		}
+
+		public function actionDetail($id)
+		{
+			
 		}
 	}
 ?>
